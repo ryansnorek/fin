@@ -1,10 +1,11 @@
 import { InputText } from 'primereact/inputtext';
 import { Card } from 'primereact/card';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FinnhubService } from '../../services/FinnhubService';
 import './index.css';
+import ClickOutside from '../ClickOutside';
 
-const SearchMenu = () => {
+const SearchMenu = ({ setSelected }: any) => {
   const [query, setQuery] = useState('');
   const [queryResult, setQueryResult] = useState([]);
   const loading = query && !queryResult[0];
@@ -28,14 +29,18 @@ const SearchMenu = () => {
         value={query}
         onChange={(e) => setQuery(e.target.value.toUpperCase())}
         placeholder="$"
-        className="p-inputtext-lg"
+        className="p-inputtext-lg searchbar"
       />
       {loaded && (
-        <Card>
-          {queryResult.slice(0, 10).map((result: any) => (
-            <div>{result.symbol}</div>
-          ))}
-        </Card>
+        <ClickOutside callback={() => setQueryResult([])}>
+          <Card>
+            {queryResult.slice(0, 10).map((result: any) => (
+              <div className="query-item" onClick={() => setSelected(result)}>
+                {result.symbol}
+              </div>
+            ))}
+          </Card>
+        </ClickOutside>
       )}
     </div>
   );

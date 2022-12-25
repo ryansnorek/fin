@@ -1,0 +1,16 @@
+.search-menu {
+  width: 12rem;
+}
+
+.searchbar {
+  width: 12rem;
+}
+
+.query-item {
+  padding: .5rem 0;
+  border-bottom: 1px solid black
+}
+
+.search-menu .p-card-content {
+  padding: 0;
+}
